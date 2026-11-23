@@ -1,0 +1,4 @@
+[core]
+    remote = mydrive
+['remote "mydrive"']
+    url = gdrive://MLOps-Capstone-DVC
