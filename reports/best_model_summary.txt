@@ -1,0 +1,3 @@
+Best model: logistic_regression
+Best F1 score: 0.9861
+Selection metric: F1 score
