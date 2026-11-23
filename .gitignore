@@ -13,7 +13,8 @@ mlflow.db
 mlruns/
 
 # Trained models
-models/
+models/*
+!models/.gitignore
 
 # Logs
 *.log

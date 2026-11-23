@@ -1,0 +1,12 @@
+data:
+  test_size: 0.2
+  random_state: 42
+
+model:
+  logistic_regression_max_iter: 2000
+  random_forest_n_estimators: 200
+  random_state: 42
+  svm_kernel: "rbf"
+
+tracking:
+  experiment_name: "Breast_Cancer_Classification"

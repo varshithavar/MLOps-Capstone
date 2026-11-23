@@ -1,0 +1,41 @@
+
+stages:
+  validate:
+    cmd: python src/data/validate.py
+    deps:
+      - src/data/validate.py
+      - data/raw/breast_cancer.csv
+    outs:
+      - reports/data_validation.txt
+
+  preprocess:
+    cmd: python src/data/preprocess.py
+    deps:
+      - src/data/preprocess.py
+      - data/raw/breast_cancer.csv
+      - reports/data_validation.txt
+    params:
+      - data.test_size
+      - data.random_state
+    outs:
+      - data/processed/train.csv
+      - data/processed/test.csv
+      - data/processed/scaler.joblib
+
+  train:
+    cmd: python src/models/train.py
+    deps:
+      - src/models/train.py
+      - data/processed/train.csv
+      - data/processed/test.csv
+    params:
+      - model.logistic_regression_max_iter
+      - model.random_forest_n_estimators
+      - model.random_state
+      - model.svm_kernel
+      - tracking.experiment_name
+    outs:
+      - models/best_model.joblib
+    metrics:
+      - reports/model_comparison.csv:
+          cache: false

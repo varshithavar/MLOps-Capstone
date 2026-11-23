@@ -6,10 +6,12 @@ import pandas as pd
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 RAW_DATA_PATH = ROOT_DIR / "data" / "raw" / "breast_cancer.csv"
+REPORT_PATH = ROOT_DIR / "reports" / "data_validation.txt"
 
 
 def validate_data() -> bool:
     """Validate the raw dataset before model training."""
+
     if not RAW_DATA_PATH.exists():
         raise FileNotFoundError(f"Dataset not found: {RAW_DATA_PATH}")
 
@@ -27,8 +29,21 @@ def validate_data() -> bool:
     if not set(df["target"].unique()).issubset({0, 1}):
         raise ValueError("Target must contain only 0 and 1.")
 
+    REPORT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+    report = (
+        "Data validation: PASSED\n"
+        f"Rows: {len(df)}\n"
+        f"Columns: {len(df.columns)}\n"
+        f"Missing values: {int(df.isnull().sum().sum())}\n"
+        f"Target classes: {sorted(df['target'].unique().tolist())}\n"
+    )
+
+    REPORT_PATH.write_text(report, encoding="utf-8")
+
     print("Data validation passed.")
     print(f"Rows: {len(df)}, columns: {len(df.columns)}")
+    print(f"Validation report saved: {REPORT_PATH}")
 
     return True
 
