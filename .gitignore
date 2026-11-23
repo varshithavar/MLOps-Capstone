@@ -1,0 +1,19 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environment
+.venv/
+venv/
+
+# MLflow generated files
+mlflow.db
+mlruns/
+
+# Trained models
+models/
+
+# Logs
+*.log
