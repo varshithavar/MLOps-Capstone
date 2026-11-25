@@ -39,3 +39,26 @@ stages:
     metrics:
       - reports/model_comparison.csv:
           cache: false
+
+  data_drift:
+    cmd: python -m src.monitoring.data_drift
+    deps:
+      - src/monitoring/data_drift.py
+      - data/processed/train.csv
+      - data/processed/test.csv
+    outs:
+      - reports/data_drift.html
+      - reports/data_drift.json
+
+  model_monitor:
+    cmd: python -m src.monitoring.model_monitor
+    deps:
+      - src/monitoring/model_monitor.py
+      - models/best_model.joblib
+      - data/processed/scaler.joblib
+      - data/processed/test.csv
+    outs:
+      - reports/confusion_matrix.csv
+    metrics:
+      - reports/model_monitoring.csv:
+          cache: false

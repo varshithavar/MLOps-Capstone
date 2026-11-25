@@ -8,3 +8,4 @@ uvicorn[standard]
 joblib
 pytest
 PyYAML
+evidently==0.7.23

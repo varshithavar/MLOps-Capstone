@@ -61,8 +61,8 @@ stages:
       size: 271459
     - path: src/models/train.py
       hash: md5
-      md5: b8a7186161978ee61270de87bb5f7bfe
-      size: 6428
+      md5: 79c3ff865558234fe7ba8a10ae7b42b4
+      size: 9565
     params:
       params.yaml:
         model.logistic_regression_max_iter: 2000
@@ -73,9 +73,61 @@ stages:
     outs:
     - path: models/best_model.joblib
       hash: md5
-      md5: 6c958030eff2f11702544f1f57cd8435
-      size: 3073
+      md5: 96a2ba257e7009b1a207381c74b768a3
+      size: 3921
     - path: reports/model_comparison.csv
       hash: md5
-      md5: b0fa7852e905c8180438c67a2087341b
+      md5: fa38de639d086bc5a1232be2b1dcd7bc
       size: 434
+  data_drift:
+    cmd: python -m src.monitoring.data_drift
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 09c77617d3066019449ff741c1c8d586
+      size: 68434
+    - path: data/processed/train.csv
+      hash: md5
+      md5: ab52c1e2ad67ae8ee5f456b5897211f1
+      size: 271459
+    - path: src/monitoring/data_drift.py
+      hash: md5
+      md5: 7de05838f1cc419f6d6c3e609733f04a
+      size: 2568
+    outs:
+    - path: reports/data_drift.html
+      hash: md5
+      md5: 8e62519adaff1a377d6081ba04db7318
+      size: 5518393
+    - path: reports/data_drift.json
+      hash: md5
+      md5: d186646b166a550310eb0a79f7e77a8d
+      size: 9955
+  model_monitor:
+    cmd: python -m src.monitoring.model_monitor
+    deps:
+    - path: data/processed/scaler.joblib
+      hash: md5
+      md5: 1a5ee1c2a3896531a722f744356de3a9
+      size: 2103
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 09c77617d3066019449ff741c1c8d586
+      size: 68434
+    - path: models/best_model.joblib
+      hash: md5
+      md5: 96a2ba257e7009b1a207381c74b768a3
+      size: 3921
+    - path: src/monitoring/model_monitor.py
+      hash: md5
+      md5: d85604dbf66e9ddf5599b5696b1f248b
+      size: 2819
+    outs:
+    - path: reports/confusion_matrix.csv
+      hash: md5
+      md5: 300d2f3a3973f4db0071af55b85261f5
+      size: 56
+    - path: reports/model_monitoring.csv
+      hash: md5
+      md5: 559a8694f9c481af9bfb622656796cdc
+      size: 113

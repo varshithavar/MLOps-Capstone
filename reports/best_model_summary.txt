@@ -1,3 +1,6 @@
 Best model: logistic_regression
 Best F1 score: 0.9861
 Selection metric: F1 score
+MLflow run ID: 7467104643f2490e8c9693d6ea509a7f
+Registered model: BreastCancerClassifier
+Model version: 2
